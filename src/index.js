@@ -11,8 +11,26 @@ const app = express();
 app.use(morgan("dev"));
 app.use(cors()); //Para realizar consultas desde una app exterior
 
+
 app.use(express.json()); 
 app.use(express.urlencoded({ extended: true }));
+
+
+let isLogin = () => false;
+
+app.use((req, res, next) => {
+  console.log(req.get('token'));
+  // next();
+  if (req.body.token) {
+    console.log('token:  ' + req.body.token);
+  } else {
+    res.send('No estas logueado');
+  }
+});
+
+
+
+
 
 //esto es para acceder a la carpeta public
 app.use(express.static(path.join(__dirname, "../public")));
