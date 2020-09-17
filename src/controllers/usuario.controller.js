@@ -1,5 +1,4 @@
 import Usuario from "../models/usuario";
-
 const usuarioCtrl = {};
 
 usuarioCtrl.getUsuarios = async (req, res) => {

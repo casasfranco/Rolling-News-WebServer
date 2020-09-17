@@ -1,6 +1,7 @@
 import mongoose, { connect } from "mongoose";
+require('dotenv').config();
 
-const url = "mongodb://localhost:27017/rolling-news"; 
+const url = process.env.MONGODB_URL; 
 
 mongoose.connect(url, {
   useNewUrlParser: true,
