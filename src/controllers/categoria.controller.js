@@ -29,12 +29,14 @@ categoriaCtrl.crearCategoria = async (req, res) => {
   console.log(req.body);
   const {
     nombreCat,
+    descripcionCat,
     estadoCat,
   } = req.body;
 
   try {
     const categoriaNueva = new Categoria({
         nombreCat,
+        descripcionCat,
         estadoCat,
     });
 

@@ -7,6 +7,7 @@ import "./database";
 require("dotenv").config();
 import usuarioRouter from "./routes/usuario.routes";
 import noticiaRouter from "./routes/noticia.routes";
+import categoriaRouter from "./routes/categoria.routes";
 import Usuario from "./models/usuario";
 
 const app = express();
@@ -34,14 +35,17 @@ app.post("/api/autenticar", async (req, res) => {
         user: req.body.nombreUsuario,
         contrasena: req.body.passUsuario,
       };
+      
       //Creo el token
       const token = jwt.sign(payload, process.env.SEED, {
         expiresIn: app.get("expireTime"),
       });
+
       res.json({
         mensaje: "Autenticación correcta",
         token: token,
       });
+      
     } else {  //No encontro
       res.status(400).json({ mensaje: "Contraseña o usuario incorrectos" });
     }
@@ -53,8 +57,11 @@ app.post("/api/autenticar", async (req, res) => {
 
 //Verifico la firma del token (compruebo si el token es correcto)
 app.use((req, res, next) => {
-  let token = req.body.token;
+  // let token = req.body.token;
+  let token = req.get('token');
   const seed = process.env.SEED;
+
+
   jwt.verify(token, seed, (err, decoded) => {
     if (err) {
       return res.status(401).json({ ok: false, err });
@@ -72,7 +79,7 @@ app.set("port", process.env.PORT || 4000); //Si esxiste esa variable, se guardar
 //Defino rutas
 app.use("/api/usuario", usuarioRouter);
 app.use("/api/noticia", noticiaRouter);
-
+app.use("/api/categoria", categoriaRouter);
 //Escuchar el puerto
 app.listen(app.get("port"), () => {
   console.log(path.join(__dirname, "../public"));

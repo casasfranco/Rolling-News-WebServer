@@ -14,6 +14,8 @@ const {
 
 router.route("/").get(getCategoria).post(crearCategoria);
 
+router.route("/all").post(getCategoria);
+
 router
   .route("/:id")
   .get(getCategoriaById)
