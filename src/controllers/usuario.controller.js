@@ -57,7 +57,6 @@ usuarioCtrl.altaUsuario = async (req, res) => {
   } catch (error) {
     console.log(error);
     res.status(400).json({ mensaje: "No se pudo crear el usuario" });
-    next(error);
   }
 };
 

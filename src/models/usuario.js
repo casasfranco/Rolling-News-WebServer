@@ -1,15 +1,16 @@
 import mongoose, { Schema } from "mongoose";
 const usuarioSchema = new Schema(
   {
-    nombre: { type: String, maxlength: 20, required: true, unique: true },
+    nombre: { type: String, maxlength: 20, required: true},
     apellido: { type: String, maxlength: 30, required: true },
-    nombreUsuario: { type: String, maxlength: 30, required: true },
-    passUsuario: { type: String, required: true },
-    direccionUsuario: { type: String, required: true },
-    localidadUsuario: { type: String, required: true },
+    nombreUsuario: { type: String, maxlength: 30, required: true, unique: true },
+    passUsuario: { type: String, required: true, maxlength: 30 },
+    direccionUsuario: { type: String, required: true, maxlength: 30 },
+    ProvinciaUsuario: { type: String, required: true, maxlength: 30 },
+    localidadUsuario: { type: String, required: true, maxlength: 30 },
     cpUsuario: { type: Number, required: true },
     numTelefonoUsuario: { type: String, required: true },
-    perfilUsuario: { type: String, required: true },
+    perfilUsuario: { type: String, required: true, maxlength: 15 },
     estadoUsuario: { type: Boolean, required: true },
   },
   { timestamps: true }
@@ -18,14 +19,3 @@ const usuarioSchema = new Schema(
 const Usuario = mongoose.model("usuario", usuarioSchema);
 
 export default Usuario;
-
-// ■	Apellido y nombre
-// ■	Dirección
-// ■	Localidad
-// ■	Código postal
-// ■	Teléfono
-// ■	Email
-// ■	perfil (editor en este caso)
-// ■	usuario
-// ■	contraseña
-// ■	estado:  habilitado o inhabilitado
