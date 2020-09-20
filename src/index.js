@@ -20,6 +20,9 @@ app.use(cors()); //Para realizar consultas desde una app exterior
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//esto es para acceder a la carpeta public
+app.use(express.static(path.join(__dirname, "../public")));
+
 //Login y envio de token
 app.post("/api/autenticar", async (req, res) => {
   try {
@@ -74,9 +77,6 @@ app.use((req, res, next) => {
     next();
   });
 });
-
-//esto es para acceder a la carpeta public
-app.use(express.static(path.join(__dirname, "../public")));
 
 app.set("port", process.env.PORT || 4000); //Si esxiste esa variable, se guardara en este objeto.
 
