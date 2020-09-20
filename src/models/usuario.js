@@ -6,7 +6,7 @@ const usuarioSchema = new Schema(
     nombreUsuario: { type: String, maxlength: 30, required: true, unique: true },
     passUsuario: { type: String, required: true, maxlength: 30 },
     direccionUsuario: { type: String, required: true, maxlength: 30 },
-    ProvinciaUsuario: { type: String, required: true, maxlength: 30 },
+    provinciaUsuario: { type: String, required: true, maxlength: 30 },
     localidadUsuario: { type: String, required: true, maxlength: 30 },
     cpUsuario: { type: Number, required: true },
     numTelefonoUsuario: { type: String, required: true },
