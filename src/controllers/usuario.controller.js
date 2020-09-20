@@ -6,7 +6,9 @@ usuarioCtrl.getUsuarios = async (req, res) => {
     const datos = await Usuario.find(); // busca todos los documentos(select)
     res.status(200).json(datos);
   } catch (error) {
-    res.status(400).json({ mensaje: "ocurrio un error al obtener los usuario" });
+    res.status(400).json({ 
+      ok: false,
+      mensaje: "ocurrio un error al obtener los usuario" });
     next(error);
   }
 };
@@ -18,7 +20,9 @@ usuarioCtrl.getUsuarioById = async (req, res) => {
     res.status(200).json(usuarioEncontrado);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ mensaje: "Ocurrio un error al obtener el usuario" });
+    res.status(400).json({  
+      ok: false,
+      mensaje: "Ocurrio un error al obtener el usuario" });
     next(error);
   }
 };
@@ -56,7 +60,10 @@ usuarioCtrl.altaUsuario = async (req, res) => {
     res.status(200).json({ mensaje: "El usuario fue creado con exito" });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ mensaje: "No se pudo crear el usuario" });
+    res.status(400).json({  
+      ok: false,
+      mensaje: "No se pudo crear el usuario",
+   });
   }
 };
 
@@ -67,7 +74,9 @@ usuarioCtrl.editarUsuario = async (req, res) => {
     res.status(200).json({ mensaje: "Usuario actualizado con exito" });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ mensaje: "Ocurrio un error al actualizar el usuario" });
+    res.status(400).json({  
+      ok: false,
+      mensaje: "Ocurrio un error al actualizar el usuario" });
     next(error);
   }
 };
@@ -77,7 +86,9 @@ usuarioCtrl.deleteUsuario = async (req, res) => {
     await Usuario.findByIdAndDelete(req.params.id);
     res.status(200).json({ mensaje: "Se elimino el usuario" });
   } catch (error) {
-    res.status(400).json({ mensaje: "ocurrio un error al eliminar el usuario" });
+    res.status(400).json({  
+      ok: false,
+      mensaje: "ocurrio un error al eliminar el usuario" });
     next(error);
   }
 };

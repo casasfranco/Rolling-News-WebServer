@@ -8,7 +8,9 @@ categoriaCtrl.getCategoria = async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .json({ mensaje: "ocurrio un error al obtener las categorias" });
+      .json({  
+        ok: false,
+        mensaje: "ocurrio un error al obtener las categorias" });
     next(error);
   }
 };
@@ -20,7 +22,9 @@ categoriaCtrl.getCategoriaById = async (req, res) => {
     res.status(200).json(categoriaEncontrada);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ mensaje: "Ocurrio un error al obtener la categoria" });
+    res.status(400).json({  
+      ok: false,
+      mensaje: "Ocurrio un error al obtener la categoria" });
     next(error);
   }
 };
@@ -44,7 +48,9 @@ categoriaCtrl.crearCategoria = async (req, res) => {
     res.status(200).json({ mensaje: "La categoria fue creada con exito" });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ mensaje: "No se pudo crear la categoria" });
+    res.status(400).json({  
+      ok: false,
+      mensaje: "No se pudo crear la categoria" });
     next(error);
   }
 };
@@ -57,7 +63,9 @@ categoriaCtrl.editarCategoria = async (req, res) => {
     console.log(error);
     res
       .status(400)
-      .json({ mensaje: "Ocurrio un error al actualizar la categoria" });
+      .json({  
+        ok: false,
+        mensaje: "Ocurrio un error al actualizar la categoria" });
     next(error);
   }
 };
@@ -69,7 +77,9 @@ categoriaCtrl.deleteCategoria = async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .json({ mensaje: "ocurrio un error al eliminar la categoria" });
+      .json({  
+        ok: false,
+        mensaje: "ocurrio un error al eliminar la categoria" });
     next(error);
   }
 };

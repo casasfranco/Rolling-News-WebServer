@@ -8,7 +8,9 @@ noticiaCtrl.getNoticia = async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .json({ mensaje: "ocurrio un error al obtener las noticias" });
+      .json({  
+        ok: false,
+        mensaje: "ocurrio un error al obtener las noticias" });
     next(error);
   }
 };
@@ -20,7 +22,9 @@ noticiaCtrl.getNoticiaById = async (req, res) => {
     res.status(200).json(noticiaEncontrada);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ mensaje: "Ocurrio un error al obtener la noticia" });
+    res.status(400).json({  
+      ok: false,
+      mensaje: "Ocurrio un error al obtener la noticia" });
     next(error);
   }
 };
@@ -58,7 +62,9 @@ noticiaCtrl.crearNoticia = async (req, res) => {
     res.status(200).json({ mensaje: "La noticia fue creada con exito" });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ mensaje: "No se pudo crear la noticia" });
+    res.status(400).json({  
+      ok: false,
+      mensaje: "No se pudo crear la noticia" });
     next(error);
   }
 };
@@ -71,7 +77,9 @@ noticiaCtrl.editarNoticia = async (req, res) => {
     console.log(error);
     res
       .status(400)
-      .json({ mensaje: "Ocurrio un error al actualizar la noticia" });
+      .json({  
+        ok: false,
+        mensaje: "Ocurrio un error al actualizar la noticia" });
     next(error);
   }
 };
@@ -83,7 +91,9 @@ noticiaCtrl.deleteNoticia = async (req, res) => {
   } catch (error) {
     res
       .status(400)
-      .json({ mensaje: "ocurrio un error al eliminar la noticia" });
+      .json({  
+        ok: false,
+        mensaje: "ocurrio un error al eliminar la noticia" });
     next(error);
   }
 };
