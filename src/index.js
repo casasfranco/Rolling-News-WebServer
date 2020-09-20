@@ -41,13 +41,17 @@ app.post("/api/autenticar", async (req, res) => {
         expiresIn: app.get("expireTime"),
       });
 
-      res.json({
+
+      res.status(200).json({
+        ok: true,
         mensaje: "Autenticación correcta",
         token: token,
       });
       
     } else {  //No encontro
-      res.status(400).json({ mensaje: "Contraseña o usuario incorrectos" });
+      res.status(205).json({ 
+        ok: false,
+        mensaje: "Contraseña o usuario incorrectos" });
     }
   } catch (error) { //Hubo un error
     console.log(error);
