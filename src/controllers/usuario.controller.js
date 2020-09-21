@@ -34,6 +34,7 @@ usuarioCtrl.altaUsuario = async (req, res) => {
     apellido,
     nombreUsuario,
     passUsuario,
+    emailUsuario,
     direccionUsuario,
     provinciaUsuario,
     localidadUsuario,
@@ -49,6 +50,7 @@ usuarioCtrl.altaUsuario = async (req, res) => {
       apellido,
       nombreUsuario,
       passUsuario,
+      emailUsuario,
       direccionUsuario,
       provinciaUsuario,
       localidadUsuario,
@@ -58,6 +60,7 @@ usuarioCtrl.altaUsuario = async (req, res) => {
       estadoUsuario,
     });
 
+    console.log(usuarioNuevo);
     await usuarioNuevo.save();
     res.status(200).json({ mensaje: "El usuario fue creado con exito" });
   } catch (error) {
