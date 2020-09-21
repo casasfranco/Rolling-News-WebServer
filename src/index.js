@@ -52,7 +52,7 @@ app.post("/api/autenticar", async (req, res) => {
       });
       
     } else {  //No encontro
-      res.status(205).json({ 
+      res.status(201).json({ 
         ok: false,
         mensaje: "Contraseña o usuario incorrectos" });
     }
