@@ -12,7 +12,7 @@ const {
 } = noticiaController;
 
 
-router.route("/").get(getNoticia).post(crearNoticia);
+router.route("/").post(crearNoticia);
 
 router
   .route("/:id")

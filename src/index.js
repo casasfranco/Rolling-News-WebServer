@@ -23,6 +23,23 @@ app.use(express.urlencoded({ extended: true }));
 //esto es para acceder a la carpeta public
 app.use(express.static(path.join(__dirname, "../public")));
 
+app.post("/", async (req, res) => {
+  try {
+    const datos = await Noticia.find({estadoNoticia: true}); // busca todos los documentos(select)
+    res.status(200).json(datos);
+  } catch (error) {
+    res
+      .status(400)
+      .json({  
+        ok: false,
+        mensaje: "ocurrio un error al obtener las noticias" });
+    next(error);
+  }
+});
+
+
+
+
 //Login y envio de token
 app.post("/api/autenticar", async (req, res) => {
   try {

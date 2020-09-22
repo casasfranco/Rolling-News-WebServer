@@ -2,8 +2,8 @@ import mongoose, { Schema } from "mongoose";
 
 const noticiaSchema = new Schema(
   {
-    volantaNoticia: { type: String, maxlength: 40, required: true},
-    tituloPrincipalNoticia: { type: String, maxlength: 60, required: true },
+    volantaNoticia: { type: String, maxlength: 80, required: true},
+    tituloPrincipalNoticia: { type: String, maxlength: 100, required: true },
     copeteNoticia: { type: String, maxlength: 250, required: true },
     urlImgPrincipalNoticia: { type: String, maxlength: 200, required: true },
     cuerpoNoticia: { type: String, maxlength: 20000, required: true },
