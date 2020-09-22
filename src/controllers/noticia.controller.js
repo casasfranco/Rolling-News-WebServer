@@ -3,7 +3,7 @@ const noticiaCtrl = {};
 
 noticiaCtrl.getNoticia = async (req, res) => {
   try {
-    const datos = await Noticia.find(); // busca todos los documentos(select)
+    const datos = await Noticia.find({estadoNoticia: true}); // busca todos los documentos(select)
     res.status(200).json(datos);
   } catch (error) {
     res
