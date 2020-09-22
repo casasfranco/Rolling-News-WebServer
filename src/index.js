@@ -20,26 +20,8 @@ app.use(cors()); //Para realizar consultas desde una app exterior
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.set("port", process.env.PORT || 4000); //Si esxiste esa variable, se guardara en este objeto.
-
 //esto es para acceder a la carpeta public
 app.use(express.static(path.join(__dirname, "../public")));
-app.use("/api/noticia", noticiaRouter);
-app.post("/api/noticia/", async (req, res) => {
-  try {
-    const datos = await Noticia.find({estadoNoticia: true}); // busca todos los documentos(select)
-    res.status(200).json(datos);
-  } catch (error) {
-    res
-      .status(400)
-      .json({  
-        ok: false,
-        mensaje: "ocurrio un error al obtener las noticias" });
-    next(error);
-  }
-});
-
-
 
 
 //Login y envio de token
@@ -97,10 +79,11 @@ app.use((req, res, next) => {
   });
 });
 
-
+app.set("port", process.env.PORT || 4000); //Si esxiste esa variable, se guardara en este objeto.
 
 //Defino rutas
 app.use("/api/usuario", usuarioRouter);
+app.use("/api/noticia", noticiaRouter);
 app.use("/api/categoria", categoriaRouter);
 //Escuchar el puerto
 app.listen(app.get("port"), () => {
