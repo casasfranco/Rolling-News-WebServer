@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: true }));
 //esto es para acceder a la carpeta public
 app.use(express.static(path.join(__dirname, "../public")));
 
-app.post("/", async (req, res) => {
+app.post("/api/noticia/", async (req, res) => {
   try {
     const datos = await Noticia.find({estadoNoticia: true}); // busca todos los documentos(select)
     res.status(200).json(datos);
