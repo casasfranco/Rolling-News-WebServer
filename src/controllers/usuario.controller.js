@@ -14,6 +14,30 @@ usuarioCtrl.getNivelUsuario = async (req, res) => {
   }
 };
 
+usuarioCtrl.crearNivelUsuario = async (req, res) => {
+  console.log(req.body);
+  const {
+    nombreNivel,
+    estadoNivel
+  } = req.body;
+
+  try {
+    const nivelNuevo = new NivelUsuario({
+      nombreNivel,
+      estadoNivel
+    });
+
+    await nivelNuevo.save();
+    res.status(200).json({ mensaje: "El nivel fue creado con exito" });
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({  
+      ok: false,
+      mensaje: "No se pudo crear el nivel" });
+    next(error);
+  }
+};
+
 usuarioCtrl.getUsuarios = async (req, res) => {
   try {
     const datos = await Usuario.find(); // busca todos los documentos(select)

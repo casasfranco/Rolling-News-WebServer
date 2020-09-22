@@ -10,9 +10,10 @@ const {
   deleteUsuario,
   editarUsuario,
   getNivelUsuario,
+  crearNivelUsuario,
 } = usuarioControler;
 
-router.route("/nivel").get(getNivelUsuario);
+router.route("/nivel").get(getNivelUsuario).post(crearNivelUsuario);
 
 router.route("/").get(getUsuarios).post(altaUsuario);
 
