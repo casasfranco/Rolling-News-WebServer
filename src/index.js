@@ -9,6 +9,7 @@ import usuarioRouter from "./routes/usuario.routes";
 import noticiaRouter from "./routes/noticia.routes";
 import categoriaRouter from "./routes/categoria.routes";
 import Usuario from "./models/usuario";
+import Noticia from "./models/noticia";
 
 const app = express();
 
@@ -22,6 +23,38 @@ app.use(express.urlencoded({ extended: true }));
 
 //esto es para acceder a la carpeta public
 app.use(express.static(path.join(__dirname, "../public")));
+
+app.set("port", process.env.PORT || 4000); //Si esxiste esa variable, se guardara en este objeto.
+
+app.get("/api/noticia", async (req, res) => {
+  try {
+    const datos = await Noticia.find({estadoNoticia: true}); // busca todos los documentos(select)
+    res.status(200).json(datos);
+  } catch (error) {
+    res
+      .status(400)
+      .json({  
+        ok: false,
+        mensaje: "ocurrio un error al obtener las noticias" });
+    next(error);
+  }
+});
+
+//Verifico la firma del token (compruebo si el token es correcto)
+app.use((req, res, next) => {
+  // let token = req.body.token;
+  let token = req.get('token');
+  const seed = process.env.SEED;
+
+
+  jwt.verify(token, seed, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ ok: false, err });
+    }
+    //Esta verificado
+    next();
+  });
+});
 
 
 //Login y envio de token
@@ -79,7 +112,6 @@ app.use((req, res, next) => {
   });
 });
 
-app.set("port", process.env.PORT || 4000); //Si esxiste esa variable, se guardara en este objeto.
 
 //Defino rutas
 app.use("/api/usuario", usuarioRouter);
