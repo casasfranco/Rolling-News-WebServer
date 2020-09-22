@@ -1,5 +1,18 @@
 import Usuario from "../models/usuario";
+import NivelUsuario from "../models/nivelUsuario"
 const usuarioCtrl = {};
+
+usuarioCtrl.getNivelUsuario = async (req, res) => {
+  try {
+    const datos = await NivelUsuario.find(); // busca todos los documentos(select)
+    res.status(200).json(datos);
+  } catch (error) {
+    res.status(400).json({ 
+      ok: false,
+      mensaje: "ocurrio un error al obtener los niveles de usuarios" });
+    next(error);
+  }
+};
 
 usuarioCtrl.getUsuarios = async (req, res) => {
   try {

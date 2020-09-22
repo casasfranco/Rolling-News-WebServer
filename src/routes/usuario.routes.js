@@ -9,17 +9,17 @@ const {
   getUsuarioById,
   deleteUsuario,
   editarUsuario,
+  getNivelUsuario,
 } = usuarioControler;
 
-router
-  .route("/")
-  .get(getUsuarios)
-  .post(altaUsuario);
+router.route("/nivel").get(getNivelUsuario);
+
+router.route("/").get(getUsuarios).post(altaUsuario);
 
 router
   .route("/:id")
   .get(getUsuarioById)
   .put(editarUsuario)
   .delete(deleteUsuario);
-  
+
 export default router;
