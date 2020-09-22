@@ -22,20 +22,20 @@ app.use(express.urlencoded({ extended: true }));
 
 //esto es para acceder a la carpeta public
 app.use(express.static(path.join(__dirname, "../public")));
-
-app.post("/api/noticia/", async (req, res) => {
-  try {
-    const datos = await Noticia.find({estadoNoticia: true}); // busca todos los documentos(select)
-    res.status(200).json(datos);
-  } catch (error) {
-    res
-      .status(400)
-      .json({  
-        ok: false,
-        mensaje: "ocurrio un error al obtener las noticias" });
-    next(error);
-  }
-});
+app.use("/api/noticia", noticiaRouter);
+// app.post("/api/noticia/", async (req, res) => {
+//   try {
+//     const datos = await Noticia.find({estadoNoticia: true}); // busca todos los documentos(select)
+//     res.status(200).json(datos);
+//   } catch (error) {
+//     res
+//       .status(400)
+//       .json({  
+//         ok: false,
+//         mensaje: "ocurrio un error al obtener las noticias" });
+//     next(error);
+//   }
+// });
 
 
 
@@ -99,7 +99,6 @@ app.set("port", process.env.PORT || 4000); //Si esxiste esa variable, se guardar
 
 //Defino rutas
 app.use("/api/usuario", usuarioRouter);
-app.use("/api/noticia", noticiaRouter);
 app.use("/api/categoria", categoriaRouter);
 //Escuchar el puerto
 app.listen(app.get("port"), () => {
