@@ -2,7 +2,8 @@ import mongoose, { Schema } from "mongoose";
 
 const noticiaSchema = new Schema(
   {
-    volantaNoticia: { type: String, maxlength: 80, required: true},
+    volantaNoticia: { type: String, maxlength: 80, required: true },
+    destacada: { type: Boolean, default: false, required: true },
     tituloPrincipalNoticia: { type: String, maxlength: 100, required: true },
     copeteNoticia: { type: String, maxlength: 250, required: true },
     urlImgPrincipalNoticia: { type: String, maxlength: 200, required: true },
@@ -11,7 +12,7 @@ const noticiaSchema = new Schema(
     autorNoticia: { type: String, maxlength: 20 },
     categoriaNoticia: { type: String, maxlength: 20, required: true },
     publicadaNoticia: { type: Boolean, default: true, required: true },
-    estadoNoticia: { type: Boolean, default: true, required: true }
+    estadoNoticia: { type: Boolean, default: true, required: true },
   },
   { timestamps: true }
 );

@@ -4,6 +4,8 @@ import cors from "cors";
 import path from "path";
 import jwt from "jsonwebtoken";
 import "./database";
+import {verifyToken} from './middlewares/auth'
+
 require("dotenv").config();
 import usuarioRouter from "./routes/usuario.routes";
 import noticiaRouter from "./routes/noticia.routes";
@@ -40,25 +42,9 @@ app.get("/api/noticia", async (req, res) => {
   }
 });
 
-//Verifico la firma del token (compruebo si el token es correcto)
-app.use((req, res, next) => {
-  // let token = req.body.token;
-  let token = req.get('token');
-  const seed = process.env.SEED;
-
-
-  jwt.verify(token, seed, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ ok: false, err });
-    }
-    //Esta verificado
-    next();
-  });
-});
-
-
 //Login y envio de token
 app.post("/api/autenticar", async (req, res) => {
+  console.log(req);
   try {
     const datos = await Usuario.find({
       nombreUsuario: req.body.nombreUsuario,
@@ -67,10 +53,12 @@ app.post("/api/autenticar", async (req, res) => {
     }); 
 
     if (datos.length !== 0) { //Si encontro datos
+      const nivelUsuario = datos[0].perfilUsuario;
       const payload = {
         check: true,
         user: req.body.nombreUsuario,
         contrasena: req.body.passUsuario,
+        perfilUsuario: nivelUsuario
       };
       
       //Creo el token
@@ -78,10 +66,9 @@ app.post("/api/autenticar", async (req, res) => {
         expiresIn: app.get("expireTime"),
       });
 
-
       res.status(200).json({
         ok: true,
-        mensaje: "Autenticación correcta",
+        mensaje: "Inicio de sesion exitoso",
         token: token,
       });
       
@@ -96,27 +83,14 @@ app.post("/api/autenticar", async (req, res) => {
   }
 });
 
-//Verifico la firma del token (compruebo si el token es correcto)
-app.use((req, res, next) => {
-  // let token = req.body.token;
-  let token = req.get('token');
-  const seed = process.env.SEED;
-
-
-  jwt.verify(token, seed, (err, decoded) => {
-    if (err) {
-      return res.status(401).json({ ok: false, err });
-    }
-    //Esta verificado
-    next();
-  });
-});
-
-
 //Defino rutas
 app.use("/api/usuario", usuarioRouter);
 app.use("/api/noticia", noticiaRouter);
 app.use("/api/categoria", categoriaRouter);
+
+app.use((req, res) => {
+  return res.status(404).json({ok:false, data: 'Erorr 404'})
+})
 //Escuchar el puerto
 app.listen(app.get("port"), () => {
   console.log(path.join(__dirname, "../public"));
